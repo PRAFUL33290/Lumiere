@@ -128,9 +128,11 @@ function renderTimeline(show) {
     const left  = pct(cue.startSec, total);
     const width = pct(cue.endSec - cue.startSec, total);
     const op    = energyOpacity[cue.energy] || 0.6;
-    const colors = (cue.colors && cue.colors.length > 0) ? cue.colors : [show.colorLabel || 'blanc'];
+    const colors = cue.colors && cue.colors.length > 0 ? cue.colors : null;
     let bg;
-    if (colors.length === 1) {
+    if (!colors) {
+      bg = hexAlpha(show.color, op);
+    } else if (colors.length === 1) {
       bg = hexAlpha(colorFor(colors[0]), op);
     } else {
       const stops = colors.map(c => hexAlpha(colorFor(c), op)).join(', ');
