@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumière — Gestion des éclairages de spectacle</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Header ─────────────────────────────── -->
+  <header class="header">
+    <a class="header-logo" href="#" onclick="goBack(); return false;">
+      <div class="header-logo-icon">💡</div>
+      <div>
+        <div class="header-logo-text">LUMIÈRE</div>
+        <div class="header-logo-sub">Lighting Show Manager</div>
+      </div>
+    </a>
+    <div class="header-spacer"></div>
+    <div class="header-meta">Spectacle 2025</div>
+  </header>
+
+  <!-- ── Main ───────────────────────────────── -->
+  <main class="main">
+
+    <!-- Index view -->
+    <div id="index-view" class="index-view">
+      <div class="shows-header">
+        <h1>Spectacles</h1>
+        <p>Sélectionnez un spectacle pour consulter le plan d'éclairage détaillé.</p>
+      </div>
+      <div id="shows-grid" class="shows-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Detail view -->
+    <div id="detail-view" class="detail-view">
+
+      <!-- Back + title -->
+      <div class="detail-header">
+        <button class="detail-back" onclick="goBack()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+          Retour
+        </button>
+        <div class="detail-title-block">
+          <div id="detail-id" class="detail-id"></div>
+          <div id="detail-title" class="detail-title"></div>
+          <div id="detail-song" class="detail-song"></div>
+          <div id="detail-badges" class="detail-badges"></div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div id="stat-total" class="stat-value">—</div>
+          <div class="stat-label">Total cues</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-sections" class="stat-value">—</div>
+          <div class="stat-label">Sections</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-accents" class="stat-value">—</div>
+          <div class="stat-label">Accents</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-tempsfort" class="stat-value">—</div>
+          <div class="stat-label">Temps forts</div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline-container">
+        <div class="timeline-label">Chronologie</div>
+        <div id="timeline-track" class="timeline-track"></div>
+        <div id="timeline-ruler" class="timeline-ruler"></div>
+      </div>
+
+      <!-- Cue list -->
+      <div class="cue-list-header">
+        <h3>Plan d'éclairage</h3>
+        <div class="cue-filters">
+          <button class="filter-btn active" data-filter="all"    onclick="setFilter('all')">Tous</button>
+          <button class="filter-btn"        data-filter="section"    onclick="setFilter('section')">Sections</button>
+          <button class="filter-btn"        data-filter="accent"     onclick="setFilter('accent')">Accents</button>
+          <button class="filter-btn"        data-filter="temps_fort" onclick="setFilter('temps_fort')">Temps forts</button>
+        </div>
+      </div>
+      <div id="cue-list" class="cue-list">
+        <!-- populated by JS -->
+      </div>
+
+    </div><!-- /detail-view -->
+
+  </main>
+</div><!-- /app -->
+
+<script src="js/app.js"></script>
+</body>
+</html>
