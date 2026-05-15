@@ -121,18 +121,24 @@ function renderTimeline(show) {
   const sections = show.cues.filter(c => c.type === 'section');
   const accents  = show.cues.filter(c => c.type !== 'section');
 
-  // Assign hue per section using show color with varying opacity for energy
+  // Assign hue per section using cue colors with varying opacity for energy
   const energyOpacity = { low: 0.35, medium: 0.55, high: 0.75, max: 1.0 };
 
   track.innerHTML = sections.map(cue => {
     const left  = pct(cue.startSec, total);
     const width = pct(cue.endSec - cue.startSec, total);
     const op    = energyOpacity[cue.energy] || 0.6;
-    // hex to rgba
-    const rgba  = hexAlpha(show.color, op);
+    const colors = (cue.colors && cue.colors.length > 0) ? cue.colors : [show.colorLabel || 'blanc'];
+    let bg;
+    if (colors.length === 1) {
+      bg = hexAlpha(colorFor(colors[0]), op);
+    } else {
+      const stops = colors.map(c => hexAlpha(colorFor(c), op)).join(', ');
+      bg = `linear-gradient(to right, ${stops})`;
+    }
     return `
       <div class="timeline-segment"
-           style="left:${left}%;width:${width}%;background:${rgba}"
+           style="left:${left}%;width:${width}%;background:${bg}"
            title="${cue.sectionName} (${cue.startTime}–${cue.endTime})"
            onclick="highlightCue('${cue.startTime}-${cue.sectionName}')">
         <span class="timeline-segment-label">${cue.sectionName}</span>
